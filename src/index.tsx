@@ -1,6 +1,7 @@
 import * as esbuild from 'esbuild-wasm' ; 
 import { useState, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
+import { unpkgPathPlugin } from './pluggins/unpkg-path-plugins';
 
 const App = () => {
   const ref = useRef<any>();
@@ -23,11 +24,14 @@ const App = () => {
       return;
     }
     //uses esbuild-wasm service to transform the code provided as input
-    const result = await ref.current.transform(input, {
-      loader: 'jsx',
-      target: 'es2015'
+    const result = await ref.current.build({
+      entryPoints: ['index.js'],
+      bundle: true,
+      write: false,
+      plugins:[ unpkgPathPlugin()]
     });
-    console.log(result);
+    // console.log(result);
+    setCode(result.outputFiles[0].text);
   }
   return (
   <div>
