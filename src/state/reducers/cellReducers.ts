@@ -1,3 +1,4 @@
+import produce from 'immer';
 import { ActionType } from '../action-types';
 import { Action } from '../actions';
 import { Cell } from '../cell';
@@ -18,21 +19,19 @@ const initialState: CellsState = {
   data: {}
 }
 
-const reducer = (state: CellsState = initialState, action: Action): CellsState => {
+const reducer = produce((state: CellsState = initialState, action: Action) => {
   switch (action.type) {
     case ActionType.UPDATE_CELL:
       // We avoid returning the entire new object just replacing the required field which is //content in this case.
       const { id, content } = action.payload;
-      return {
-        ...state,
-        data: {
-          ...state.data, [id]: {
-            ...state.data[id], content: content
-          }
-        }
-      };
+
+      // Using immer to simplify the complex spread operation done traditionally
+      state.data[id].content = content;
+      return;
     case ActionType.DELETE_CELL:
-      return state;
+      delete state.data[action.payload];
+      state.order = state.order.filter(id => id !== action.payload);
+      return;
     case ActionType.MOVE_CELL:
       return state
     case ActionType.INSERT_CELL_BEFORE:
@@ -40,6 +39,6 @@ const reducer = (state: CellsState = initialState, action: Action): CellsState =
     default:
       return state;
   }
-}
+});
 
 export default reducer;
