@@ -27,11 +27,11 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
 
       // Using immer to simplify the complex spread operation done traditionally
       state.data[id].content = content;
-      return;
+      return state;
     case ActionType.DELETE_CELL:
       delete state.data[action.payload];
       state.order = state.order.filter(id => id !== action.payload);
-      return;
+      return state;
     case ActionType.MOVE_CELL:
       const { direction } = action.payload;
       // grabbing the index of the cell to be moved
@@ -40,12 +40,12 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
       const targetIndex = direction === 'up' ? index - 1 : index + 1;
       // Checking for boundry condition for index to be within array range
       if (targetIndex < 0 || targetIndex > state.order.length - 1) {
-        return;
+        return state;
       }
       //actual swapping the content
       state.order[index] = state.order[targetIndex];
       state.order[targetIndex] = action.payload.id;
-      return;
+      return state;
     case ActionType.INSERT_CELL_BEFORE:
       const cell: Cell = {
         content: '',
@@ -62,9 +62,9 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
         //adding new cell before the current index of cell
         state.order.splice(foundIndex, 0, cell.id);
       }
-      return;
+      return state;
     default:
-      return;
+      return state;
   }
 });
 
