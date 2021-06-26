@@ -33,12 +33,43 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
       state.order = state.order.filter(id => id !== action.payload);
       return;
     case ActionType.MOVE_CELL:
-      return state
+      const { direction } = action.payload;
+      // grabbing the index of the cell to be moved
+      const index = state.order.findIndex((id) => id === action.payload.id);
+      // moving out cell before and after by swapping their indices
+      const targetIndex = direction === 'up' ? index - 1 : index + 1;
+      // Checking for boundry condition for index to be within array range
+      if (targetIndex < 0 || targetIndex > state.order.length - 1) {
+        return;
+      }
+      //actual swapping the content
+      state.order[index] = state.order[targetIndex];
+      state.order[targetIndex] = action.payload.id;
+      return;
     case ActionType.INSERT_CELL_BEFORE:
-      return state
+      const cell: Cell = {
+        content: '',
+        type: action.payload.type,
+        id: randomId()
+      };
+      //assigning new cell to state
+      state.data[cell.id] = cell;
+      const foundIndex = state.order.findIndex((id) => id === action.payload.id);
+      //checking condition if index is not found then adding cell to the last of order array
+      if (foundIndex < 0) {
+        state.order.push(cell.id);
+      } else {
+        //adding new cell before the current index of cell
+        state.order.splice(foundIndex, 0, cell.id);
+      }
+      return;
     default:
-      return state;
+      return;
   }
 });
+
+const randomId = () => {
+  return Math.random().toString(36).substring(2, 5);
+};
 
 export default reducer;
