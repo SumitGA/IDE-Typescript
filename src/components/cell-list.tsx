@@ -7,7 +7,7 @@ const CellList: React.FC = () => {
 	const cells = useTypedSelector(({ cells: { order, data } }) => order.map((id) => data[id]));
 	const renderCells = cells.map((cell) => (
 		<Fragment key={cell.id}>
-			<AddCell nextCellId={cell.id} />
+			<AddCell forceVisible={false} nextCellId={cell.id} />
 			<CellListItem cell={cell} />
 		</Fragment>
 	));
@@ -15,9 +15,7 @@ const CellList: React.FC = () => {
 	return (
 		<div>
 			{renderCells}
-			<div className={cells.length === 0 ? 'force-visible' : ''}>
-				<AddCell nextCellId={null} />
-			</div>
+			<AddCell forceVisible={cells.length === 0} nextCellId={null} />
 		</div>
 	);
 };
