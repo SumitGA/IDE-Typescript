@@ -1,5 +1,10 @@
 .add-cell {
   position: relative;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.add-cell:hover {
+ opacity: 1.0;
 }
 .add-cell .divider {
  position: absolute;
@@ -14,6 +19,10 @@
 .add-buttons {
   display: flex;
   justify-content: center;
+}
+.add-buttons .button .icon.is-small {
+  height: 2em;
+  width: 3em;
 }
 .add-cell .add-buttons button {
   margin: 0 20px;
