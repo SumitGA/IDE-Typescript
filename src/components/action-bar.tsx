@@ -1,5 +1,4 @@
 import './action-bar.css';
-import { Action } from '../state/actions';
 import { useActions } from '../hooks/use-action';
 
 interface ActionBarProps {
