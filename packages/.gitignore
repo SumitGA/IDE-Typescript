@@ -1,0 +1,8 @@
+# ignoring node_modules
+./cli/node_modules/*
+./local-api/node_modules/*
+./local-client/node_modules/*
+#ignoring dist folder
+./cli/dist/*
+./local-api/dist/*
+./local-client/dist/*
