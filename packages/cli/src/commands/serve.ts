@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { serve } from 'local-api';
+import { serve } from '@ide-cli/local-api';
 import path from 'path';
 import { exit } from 'process';
 

@@ -5,7 +5,7 @@ import { createCellsRouter } from './routes/cells';
 
 export const serve = (port: number, filename: string, dir: string, useProxy: boolean) => {
   const app = express();
-  const packagePath = require.resolve('local-client/build/index.html');
+  const packagePath = require.resolve('@ide-cli/local-client/build/index.html');
 
   app.use(createCellsRouter(filename, dir));
 
