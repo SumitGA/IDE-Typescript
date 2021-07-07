@@ -1,0 +1,2 @@
+(this.webpackJsonpjide=this.webpackJsonpjide||[]).push([[26],{207:function(e,n){Prism.languages.arff={comment:/%.*/,string:{pattern:/(["'])(?:\\.|(?!\1)[^\\\r\n])*\1/,greedy:!0},keyword:/@(?:attribute|data|end|relation)\b/i,number:/\b\d+(?:\.\d+)?\b/,punctuation:/[{},]/}}}]);
+//# sourceMappingURL=26.03b627c4.chunk.js.map
